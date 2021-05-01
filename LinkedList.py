@@ -1,3 +1,5 @@
+import random
+
 class Node:
     def __init__(self, data, next=None):
         self.data = data
@@ -73,7 +75,25 @@ class LinkedList:
                 return
             cur = cur.next
 
-    
+    def generateRandomList(self, length = 3):
+        for _ in range(length):
+            self.appendToTail(random.randrange(10))
+
+    def removeDuplicates(self):
+        if not self.head:
+            return
+        seen = set()
+        seen.add(self.head.data)
+        cur = self.head
+
+        while cur.next:
+            if cur.next.data in seen:
+                cur.next = cur.next.next
+                self.length -= 1
+            else:
+                seen.add(cur.next.data)
+                cur = cur.next     
+        
     def printItself(self):
         cur = self.head
         print("length: ", self.length)
@@ -81,3 +101,32 @@ class LinkedList:
         while cur:
             print(cur.data)
             cur = cur.next
+
+
+### test
+def findKthNode(node: Node, k):
+    first = node
+    second = node
+    for _ in range(k):
+        try:
+            second = second.next
+        except:
+            print("invalid input")
+            return
+            
+    while second:
+        first = first.next
+        second = second.next
+
+    print("Kth noda=> ", first.data)
+
+##ll
+ll = LinkedList()
+ll.generateRandomList(10)
+ll.printItself()
+findKthNode(ll.head, 5)
+
+
+
+
+
